@@ -1,0 +1,37 @@
+개발자는 기대했던 결과와 같은 모습이 나올 것이라 판단하고 다음과 같은 코드를 작성했지만 계획대로 동작하지 않았다.
+무엇이 문제인지 문제점(원인)을 분석하여 작성하고, 기대한 결과가 나올 수 있게 조치내용을 작성하세요.
+
+<기대한 결과> 
+
+1_1set_%EA%B8%B0%EB%8C%80%ED%95%9C%EA%B2%B0%EA%B3%BC.png
+
+
+<출력된 결과>
+
+2_1set_%EC%B6%9C%EB%A0%A5%EB%90%9C%EA%B2%B0%EA%B3%BC.png
+
+
+<작성한 코드>
+
+3_1set_%EC%9E%91%EC%84%B1%ED%95%9C%EC%BD%94%EB%93%9C_1.png
+
+
+3_1set_%EC%9E%91%EC%84%B1%ED%95%9C%EC%BD%94%EB%93%9C_2.png
+-----------------------------------------------------------------------------------------------------------------------------
+원인
+1) #nav에 작성된 a태그에 text-decoration 스타일 설정이 되어있지 않아 밑줄이 나타남.
+
+2) #nav에 별도의 clear 스타일이 지정되지 않아 float를 이용하여 정렬된 #logo, #login과 겹치게됨.
+
+3) #nav에 사용된 ul 태그의 list-style을 지정하지 않아 불렛이 표시되고 있음.
+
+4) #nav에 내 li 태그의 display가 block 속성을 가지고있어 메뉴가 수평으로 출력되지 않음.
+
+문제해결
+1) style태그에 a{text-decoration:none } 추가
+
+2) style태그 중 #nav>ul에 clear:both 추가
+
+3) style태그 중 #nav>ul에 list-style:none 추가
+
+4) style태그 중 #nav>ul>li에 display: inline-block 추가
