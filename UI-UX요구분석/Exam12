@@ -1,0 +1,49 @@
+
+[다음 보기의 CSS 코드의 의미를 설명하세요. ]
+
+<<보기>>
+
+<style>
+
+#wrapper{
+
+border: 1px solid black;
+
+box-sizing: border-box;
+
+width:500px;
+
+}
+
+p[class=line]:nth-child(2n-1){
+
+backgroundColor: blue;
+
+}
+
+</style>
+
+<div id="wrapper">
+
+<p class="line">line1</p>
+
+<p class="line">line2</p>
+
+<p class="line">line3</p>
+
+</div>
+--------------------------------------------------------------------------
+id가 wrapper 인 div에 테두리를 1px 검은색 실선으로 주고,
+
+width, hieght를 이용한 설정 영역을 border까지로 지정한 다음,
+
+width를 500px로 설정.
+
+Html 문서내의 클래스 속성이 line인 p태그를 찾아 홀수번 째 p태그에 배경색을 blue로 지정한다.
+
+[유스케이스 다이어그램의 관계 중 포함 관계의 의미와 표기 기호 대해 서술]
+:한 유스케이스가 다른 유스케이스의 기능을 포함하는 관계
+
+(반드시 해야만 하는 관계)
+
+포함되는 유스케이스에서 포함하는 유스케이스 방향으로 화살표를 점선으로 연결하고 <<include>>라고 표기한다.
