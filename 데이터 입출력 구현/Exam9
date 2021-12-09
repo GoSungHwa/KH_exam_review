@@ -1,0 +1,47 @@
+회원 가입하는 소스코드를 작성하고 실행하였는데 정상적으로 실행할 수 없는 문제가 발생하였다. 아래 소스코드를 분석하여 문제가 발생하는 줄의 번호를 찾고, 문제 원인과, 조치내용(해결방법)을 작성하시오.
+* UserDAO Class 
+
+%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A41_1(UserDAO%20Class).png
+
+
+
+
+
+
+
+
+* User Class 
+
+%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A41_1(User%20Class).png
+
+
+
+
+
+
+
+
+* 테이블 정의서
+
+%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A41_1(%ED%85%8C%EC%9D%B4%EB%B8%94%20%EC%A0%95%EC%9D%98%EC%84%9C).png
+-------------------------------------------------------------------------------------------------------------------------------------------
+원인
+User 클래스에서 enrollDate의 타입이 데이터베이스와 입출력을 하기위해 사용하는 Date클래스가 java.sql.Date 클래스가 아닌 java.util.Date클래스를 사용하고 있어서
+
+UserDAO 25번 줄에서 Date의 타입이 맞지 않는다는 문제 발생
+
+1) ShopMemberDAO 19번 줄에서 조회를 위한 SQL 구문에 불필요한 세미콜론(;) 기호가 추가되어 있어 SQLSyntaxErrorException이 발생함.
+
+2) ShopMemberDAO 32번 줄에서 rset.getString("컬럼명")으로 가져오는 데이터는 String형태지만 ShopMember의 gender의 자료형은 char이므로 자료형이 일치하지 않는 문제가 발생함.
+
+문제해결
+User 클래스 3번째 줄의 내용을 java.sql.Date를 import 하도록 변경
+import java.util.Date → import java.sql.Date
+
+1) SQL 구문에 불필요한 세미콜론(;) 기호를 삭제
+
+ShopMemberDAO 19번 줄 : String query = "SELECT * FROM SHOP_MEMBER WHERE MEMBER_ID = ?";
+
+2) String 자료형을 char 형태로 변경
+
+ShopMemberDAO 32번 줄 : sm.setGender(rset.getString("GENDER").charAt(0));
