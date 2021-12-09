@@ -1,0 +1,44 @@
+다음은 MyBatis select element에 작성된 동적 SQL 구문이다. 해당 SQL 구문을 실행 했더니 오류가 발생하였다. 
+구문을 분석하여 발생하는 문제의 원인과 문제를 해결할 수 있는 조치 내용을 모두 작성하시오.
+
+
+- 전달된 Map
+
+Map<String, String> map = new HashMap<String, String>();
+
+map.put("searchKey", searchKey);
+
+map.put("searchValue",searchValue);
+
+
+
+- 해당 mapper.xml에 선언된 resultMap
+
+<resultMap type="Board" id="boardResultSet">
+
+(코드 생략)
+
+</resultMap>
+
+
+
+- mapper에 작성된 select element
+
+mapper%20%EC%9E%91%EC%84%B1%20%EC%BD%94%EB%93%9C.png
+---------------------------------------------------------------------------------------------------
+
+원인
+1) SQL 수행 결과를 매핑하기 위한 속성인 resultType=에 resultMap의 id를 작성하여 boardResultSet이라는 클래스를 찾을 수 없다는 예외가 발생함.
+
+2) 동적쿼리 내에서 map에 저장된 값을 얻어오기 위한 ${searchKey} ,${searchValue}의 '$' 기호가 잘못 사용되어 SQL 문법 예외가 발생함.
+
+문제해결
+1) 선언된 resultMap인 boradResultSet과 매핑하기 위하여 select에 작성된 resultType 속성을 resultMap으로 변경
+
+--> <select id="selectSearchList" parameterType="MAP" resultMap="boardResultSet">
+
+또는 정상적으로 매핑할 수 있는 클래스나 타입 별칭을 resultType 속성의 속성값으로 등록.
+
+2) '$'기호를 '#'으로 변경
+
+--> #{searchKey} ,#{searchValue}
