@@ -45,3 +45,43 @@ height: 100%;
 display : block; /*추가*/
 
 }
+
+
+로그인화면을 만들기 위한 로그인박스를 제작하고 테스트한 결과 페이지 이동을 하는 것까지 확인하였으나 문제가 있다는 지적을 받았다. 아래 코드를 분석하여 문제점과 원인을 서술하고, 해결방안을 작성하시오.
+<작성한 코드>
+
+%EC%9E%91%EC%84%B1%ED%95%9C%20%EC%BD%94%EB%93%9C.png
+-----------------------------------------------------------------------------------------------------------------
+문제점 : 아이디 패스워드 입력 후 로그인 버특 클릭 시 url에 아이디와 비밀번호가 그대로 노출되고 있다.
+
+원인 : form 태그의 method 속성이 get으로 작성되어 있어 입력한 아이디와 패스워드가 url을 통해서 전달된다.
+
+문제해결
+<style>
+....
+
+#login-box>div>#loginbtn>input{
+
+width:95%;
+
+heigth:95%;
+
+}
+
+
+
+<body>
+
+   <form action="/login.html" method="get">
+
+        <div id-"login-box">
+
+             <input type="text" ~~>
+
+     <input type="password"~~~>
+
+   </div>
+
+<div id="loginbtn">   //div에 id를 구분되게 지정해 분류해준다.
+
+  <input type="submit" value="로그인">
