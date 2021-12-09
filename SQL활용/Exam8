@@ -1,0 +1,10 @@
+[트랜잭션 (Transaction)에 대하여 서술]
+:데이터베이스의 논리적 연산단위.
+데이터 변경 사항을 묶어 하나의 트랜잭션에 담아 처리함.
+
+[다음 MEMBER 테이블 중 ID, 이름, 직업만 조회 할 수 있는 VIEW를 생성하는 DDL문을 작성하시오. 
+(생성하는 VIEW의 이름은 MEMBER_VIEW)]
+:CREATE VIEW MEMBER_VIEW AS SELECT ID, NAME, JOB FROM MEMBER;
+
+[SQL 구문 중 'ALTER' 구문에 대하여 서술]
+:테이블에 정의된 내용을 수정 할 때 사용하는 데이터 정의어
