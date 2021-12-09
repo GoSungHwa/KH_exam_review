@@ -1,0 +1,123 @@
+아래의 요구사항을 확인하고 그에 맞는 UI테스트 프로그램을 작성하세요.
+<<요구사항>>
+
+# 다음의 모든 작업은 UI테스팅 프로그램을 작성하여 수행하세요. ( 자동화 라이브러리는 selenium , 브라우저는 크롬을 활용하세요. )
+
+# UI테스트를 진행할 페이지는 https://www.iei.or.kr/main/main.kh 입니다.
+
+# UI테스트만을 목적으로 하는 문제이므로 예외처리 구문은 자유롭게 작성하세요.
+
+1. 다음 조건에 맞게 UI테스트 환경을 설정하세요.
+
+- 테스팅에 사용되는 프레임워크는 Selenium이며 크롬 브라우저를 사용합니다.
+
+2. 문제에 제시된 홈페이지의 로그인 페이지로 이동 후, 보기의 계정으로 로그인을 수행하세요.
+
+- 보기 : { 계정명 : khevaltest , 패스워드 : jWsh2j#df }
+
+- 로그인 페이지의 URL을 이용해 접속하세요.
+
+- 로그인 폼의 소스코드를 분석해서 ID와 PW 에 계정정보를 입력하세요.
+
+3. 로그인 기능을 수행하고, 결과 페이지 제목이 "수강생 평가" 가 될때까지 대기하세요
+
+- 로그인 버튼에 연결된 자바스크립트 함수를 이용하여 로그인하세요.
+
+4. 로그인 수행 후, "우리반 게시판" 을 눌러 게시판으로 이동합니다.
+
+- Link정보를 확인한 후, 자바스크립트를 통해 이동하세요.
+
+- 실행 후 페이지 제목이 "우리반 게시판" 이 될 때까지 프로그램을 대기시키세요.
+
+5. 2019년 4월 9일 - 작성자 "테스터"이 작성한 "시험 문제용 글 입니다." 글을 클릭하세요.
+
+페이지가 이동 된 후 댓글, 입력창이 클릭 가능할 때까지 대기하세요.
+
+- 자바스크립트 함수를 실행해서 이동하세요.
+
+- 겉에서 보이는 글 번호는 2번으로 되어있습니다.
+
+6. 글 내용 화면의 댓글 입력창을 Focus 해서 글을 입력하세요.
+
+- 입력창의 ID를 통해 선택하세요.
+
+- 입력하는 글 내용은 "댓글 달기 테스트 입니다 - 홍길동(수험자 이름)" 입니다.
+
+7. 작성된 댓글을 등록버튼을 눌러 등록하세요.
+
+- 등록 버튼에 링크 되어있는 자바스크립트 함수를 이용해 등록하세요.
+
+8. 등록 버튼을 누른 후, 등록 완료를 알리는 alert창이 뜰 때 까지 대기하세요.
+
+9. alert() 창이 뜨면 확인 버튼을 누를 수 있게, frame focus를 alert창으로 변경하세요.
+
+변경된 alert창에서 확인버튼을 눌러 종료하세요.
+
+10. 브라우저 마이페이지 사이드메뉴를 분석해서, 로그아웃 버튼을 눌러 로그아웃하세요.
+
+- 자바스크립트로 로그아웃하세요.
+---------------------------------------------------------------------------------------------------
+mport org.openqa.selenium.By;
+
+import org.openqa.selenium.JavascriptExecutor;
+
+import org.openqa.selenium.WebDriver;
+
+import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+//------------------------------------------------------------------------------
+
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+
+WebDriver driver = new ChromeDriver();
+
+WebDriverWait wait = new WebDriverWait(driver,10);
+
+JavascriptExecutor executor = (JavascriptExecutor)driver;
+
+driver.get("https://www.iei.or.kr/login/login.kh");
+
+WebElement inputId = driver.findElement(By.id("id"));
+
+WebElement inputPw = driver.findElement(By.id("password"));
+
+inputId.sendKeys("");
+
+inputPw.sendKeys("");
+
+executor.executeScript("fnLogin()");
+
+wait.until(ExpectedConditions.titleContains("수강생 평가"));
+
+executor.executeScript("javascript:location.href='/login/currBoard.kh'");
+
+wait.until(ExpectedConditions.titleContains("우리반 게시판"));
+
+executor.executeScript("fnSelect('10052')");
+
+wait.until(ExpectedConditions.elementToBeClickable(By.id("comment_area")));
+
+WebElement commentArea = driver.findElement(By.id("comment_area"));
+
+commentArea.sendKeys("댓글 달기 테스트 입니다 - 홍길동");
+
+executor.executeScript("fnComment(10052)");
+
+wait.until(ExpectedConditions.alertIsPresent());
+
+driver.switchTo().alert().accept();
+
+executor.executeScript("javascript:location.href='/login/logout.kh'");
+
+wait.until(ExpectedConditions.urlToBe("https://www.iei.or.kr/login/login.kh"));
+
+driver.close();
+
+
+
